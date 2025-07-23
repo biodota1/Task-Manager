@@ -19,7 +19,7 @@ export const getAllTasks = (req: Request, res: Response) => {
 };
 
 export const getUserTasks = (req: Request, res: Response) => {
-  const userId = req.params.userId;
+  const userId = req.session.userId;
 
   db.query("SELECT * FROM tasks WHERE userId = ?", [userId], (err, results) => {
     if (err) return res.status(500).json({ error: "Database error" });

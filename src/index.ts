@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import path from "path";
 import dotenv from "dotenv";
+import session from "express-session";
 
 import db from "./config/db";
 import taskRouter from "./routers/taskRoutes";
@@ -14,6 +15,17 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "..", "public")));
+
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "..", "views"));
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || "default_secret_key",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 
 app.get("/", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "..", "public", "index.html"));

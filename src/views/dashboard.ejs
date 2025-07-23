@@ -7,14 +7,17 @@
   </head>
   <body>
     <h1>DASHBOARD</h1>
+    <h2>Welcome, <%= username %>!</h2>
     <form action="/create-task" method="GET">
       <button type="submit">CREATE</button>
     </form>
-    <form action="/api/tasks" method="GET">
+    <form action="/api/tasks/user/:id" method="GET">
       <button type="submit">VIEW</button>
     </form>
+    <% if(userId === "jamesmyer") { %>
     <form action="/delete-task" method="GET">
       <button type="submit">DELETE</button>
     </form>
+    <% } %>
   </body>
 </html>
